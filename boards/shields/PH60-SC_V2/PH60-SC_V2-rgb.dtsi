@@ -89,8 +89,6 @@
 
     esc_breathe: esc_breathe {
         compatible = "zmk,underglow-fixed-breathe-key";
-        // Diagnostic build: the firmware now forces LED strip indices 0-14
-        // to fixed colors so we can verify raw RGB strip ordering.
         key-pos = <0>;          // Esc
         led-index = <0>;        // Direct strip index for Esc
         color = <0xFFFFFF>;     // White
@@ -139,7 +137,7 @@
         rgb_rgb {
             layer-id = <LAYER_RGB>;
             bindings = <
-&ug BLACK     &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK  &ug BLACK  &ug BLACK  &ug BLACK  &ug BLACK  &ug BLACK  &ug BLACK     &ug BLACK
+&ug BLACK     &ug RED   &ug RED   &ug GREEN &ug GREEN &ug BLUE  &ug BLUE   &ug BLACK  &ug BLACK  &ug BLACK  &ug BLACK  &ug BLACK  &ug BLACK     &ug BLACK
 &ug BLACK     &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK  &ug PURPLE &ug ORANGE &ug PURPLE &ug ORANGE &ug GREEN  &ug GREEN     &ug BLACK
 &ug BLACK     &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK  &ug PURPLE &ug ORANGE &ug PURPLE &ug ORANGE &ug BLACK               &ug BLACK
 &ug BLACK                 &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK &ug BLACK               &ug BLACK

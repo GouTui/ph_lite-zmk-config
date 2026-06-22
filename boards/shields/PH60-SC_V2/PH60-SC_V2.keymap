@@ -150,7 +150,7 @@
         rgb_layer {
             display-name = "RGB";
             bindings = <
-&trans       &trans        &trans        &trans        &trans        &trans        &trans               &trans             &trans             &trans             &trans             &trans              &trans            &trans 
+&trans       &rgb_ug RGB_RD &rgb_ug RGB_RI &rgb_ug RGB_GD &rgb_ug RGB_GI &rgb_ug RGB_BD &rgb_ug RGB_BI    &trans             &trans             &trans             &trans             &trans              &trans            &trans 
 &trans       &trans        &trans        &trans        &trans        &trans        &trans               &rgb_ug RGB_HUD    &rgb_ug RGB_HUI    &rgb_ug RGB_SAD    &rgb_ug RGB_SAI    &rgb_ug RGB_EFR     &rgb_ug RGB_EFF   &trans
 &trans       &trans        &trans        &trans        &trans        &trans        &trans               &rgb_ug RGB_BRD    &rgb_ug RGB_BRI    &rgb_ug RGB_SPD    &rgb_ug RGB_SPI    &trans                                &trans
 &trans                     &trans        &trans        &trans        &trans        &trans               &trans             &trans             &trans             &trans             &trans                                &trans
