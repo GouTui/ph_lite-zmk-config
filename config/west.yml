@@ -4,13 +4,14 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware/
-    - name: phdesign
-      url-base: https://github.com/ph-design/
+    - name: goutui
+      url-base: https://github.com/GouTui/
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
   projects:
-    - name: zmk
-      remote: phdesign
+    - name: zmks
+      remote: goutui
+      path: zmk
       revision: v0.3-lts
       import: app/west.yml
   self:

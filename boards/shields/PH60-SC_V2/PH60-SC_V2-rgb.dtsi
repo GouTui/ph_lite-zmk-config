@@ -87,6 +87,15 @@
             ;
     };
 
+    esc_breathe: esc_breathe {
+        compatible = "zmk,underglow-fixed-breathe-key";
+        key-pos = <0>;          // Esc
+        color = <0xFFFFFF>;     // White
+        period-ms = <2200>;
+        min-brightness = <0>;
+        max-brightness = <48>;
+    };
+
     underglow-layer {
         compatible = "zmk,underglow-layer";
         transform = <&rgb_transform>;
