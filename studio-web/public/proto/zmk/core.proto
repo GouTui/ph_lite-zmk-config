@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package zmk.core;
+
+enum LockState {
+    ZMK_STUDIO_CORE_LOCK_STATE_LOCKED = 0;
+    ZMK_STUDIO_CORE_LOCK_STATE_UNLOCKED = 1;
+}
+
+message Request {
+    oneof request_type {
+        bool get_device_info = 1;
+        bool get_lock_state = 2;
+        bool lock = 3;
+        bool reset_settings = 4;
+        bool get_power_settings = 5;
+        SetPowerSettingsRequest set_power_settings = 6;
+    }
+}
+
+message Response {
+    oneof response_type {
+        GetDeviceInfoResponse get_device_info = 1;
+        LockState get_lock_state = 2;
+        bool reset_settings = 4;
+        PowerSettingsState get_power_settings = 5;
+        bool set_power_settings = 6;
+    }
+}
+
+message GetDeviceInfoResponse {
+    string name = 1;
+    bytes serial_number = 2;
+}
+
+message PowerSettingsState {
+    uint32 idle_timeout_ms = 1;
+    uint32 sleep_timeout_ms = 2;
+}
+
+message SetPowerSettingsRequest {
+    oneof field {
+        uint32 idle_timeout_ms = 1;
+        uint32 sleep_timeout_ms = 2;
+    }
+}
+
+message Notification {
+    oneof notification_type {
+        LockState lock_state_changed = 1;
+    }
+}

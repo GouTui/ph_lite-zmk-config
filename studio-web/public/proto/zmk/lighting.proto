@@ -1,0 +1,176 @@
+syntax = "proto3";
+
+package zmk.lighting;
+
+// --- RGB Underglow ---
+
+message HsbColor {
+    uint32 h = 1; // Hue: 0-359
+    uint32 s = 2; // Saturation: 0-100
+    uint32 b = 3; // Brightness: 0-100
+}
+
+message RgbUnderglowState {
+    bool on = 1;
+    HsbColor color = 2;
+    uint32 effect = 3;
+    uint32 speed = 4;
+    uint32 effect_count = 5;
+    repeated string effect_names = 6;
+}
+
+message SetRgbUnderglowStateRequest {
+    oneof field {
+        bool on = 1;
+        HsbColor color = 2;
+        uint32 effect = 3;
+        uint32 speed = 4;
+    }
+}
+
+// --- Backlight ---
+
+message BacklightState {
+    bool on = 1;
+    uint32 brightness = 2;
+}
+
+message SetBacklightStateRequest {
+    oneof field {
+        bool on = 1;
+        uint32 brightness = 2;
+    }
+}
+
+// --- Layer LED Colors ---
+
+message LayerLedBinding {
+    uint32 key_position = 1;
+    uint32 color = 2;           // 0xRRGGBB, 0 = transparent
+}
+
+message LayerLedConfig {
+    uint32 layer_id = 1;
+    repeated LayerLedBinding bindings = 2;
+}
+
+message GetLayerLedColorsResponse {
+    repeated LayerLedConfig layers = 1;
+    uint32 key_count = 2;
+    uint32 layer_count = 3;
+    bool enabled = 4;
+}
+
+message SetLayerLedBindingRequest {
+    uint32 layer_id = 1;
+    uint32 key_position = 2;
+    uint32 color = 3;           // 0xRRGGBB, 0 = transparent
+}
+
+// --- CapsLock Indicator ---
+
+message CapsLockIndicatorState {
+    bool enabled = 1;
+    uint32 off_color = 2;       // 0xRRGGBB
+    uint32 on_color = 3;        // 0xRRGGBB
+    uint32 key_position = 4;
+    uint32 layer_id = 5;
+}
+
+message SetCapsLockIndicatorRequest {
+    oneof field {
+        bool enabled = 1;
+        uint32 off_color = 2;
+        uint32 on_color = 3;
+        uint32 key_position = 4;
+        uint32 layer_id = 5;
+    }
+}
+
+message ConnectionIndicatorState {
+    bool enabled = 1;
+    uint32 usb_color = 2;       // 0xRRGGBB
+    uint32 bt_color = 3;        // 0xRRGGBB
+    uint32 key_position = 4;
+    uint32 layer_id = 5;
+}
+
+message SetConnectionIndicatorRequest {
+    oneof field {
+        bool enabled = 1;
+        uint32 usb_color = 2;
+        uint32 bt_color = 3;
+        uint32 key_position = 4;
+        uint32 layer_id = 5;
+    }
+}
+
+message SetLayerLedEnabledRequest {
+    bool enabled = 1;
+}
+
+message LowBatteryIndicatorState {
+    bool enabled = 1;
+    uint32 color = 2;               // 0xRRGGBB
+    uint32 key_position = 3;
+    uint32 period_ms = 4;
+    uint32 threshold_pct = 5;
+    uint32 flash_duration_ms = 6;
+}
+
+message SetLowBatteryIndicatorRequest {
+    oneof field {
+        bool enabled = 1;
+        uint32 key_position = 2;
+        uint32 period_ms = 3;
+    }
+}
+
+// --- Aggregated Request / Response / Notification ---
+
+message Request {
+    oneof request_type {
+        bool get_rgb_underglow_state = 1;
+        SetRgbUnderglowStateRequest set_rgb_underglow_state = 2;
+        bool get_backlight_state = 3;
+        SetBacklightStateRequest set_backlight_state = 4;
+        bool save_state = 5;
+        bool get_layer_led_colors = 6;
+        SetLayerLedBindingRequest set_layer_led_binding = 7;
+        bool get_caps_lock_indicator = 8;
+        SetCapsLockIndicatorRequest set_caps_lock_indicator = 9;
+        bool save_layer_led_state = 10;
+        SetLayerLedEnabledRequest set_layer_led_enabled = 11;
+        bool get_connection_indicator = 12;
+        SetConnectionIndicatorRequest set_connection_indicator = 13;
+        bool get_low_battery_indicator = 14;
+        SetLowBatteryIndicatorRequest set_low_battery_indicator = 15;
+    }
+}
+
+message Response {
+    oneof response_type {
+        RgbUnderglowState get_rgb_underglow_state = 1;
+        bool set_rgb_underglow_state = 2;
+        BacklightState get_backlight_state = 3;
+        bool set_backlight_state = 4;
+        bool save_state = 5;
+        GetLayerLedColorsResponse get_layer_led_colors = 6;
+        bool set_layer_led_binding = 7;
+        CapsLockIndicatorState get_caps_lock_indicator = 8;
+        bool set_caps_lock_indicator = 9;
+        bool save_layer_led_state = 10;
+        bool set_layer_led_enabled = 11;
+        ConnectionIndicatorState get_connection_indicator = 12;
+        bool set_connection_indicator = 13;
+        LowBatteryIndicatorState get_low_battery_indicator = 14;
+        bool set_low_battery_indicator = 15;
+    }
+}
+
+message Notification {
+    oneof notification_type {
+        RgbUnderglowState rgb_underglow_state_changed = 1;
+        BacklightState backlight_state_changed = 2;
+    }
+}

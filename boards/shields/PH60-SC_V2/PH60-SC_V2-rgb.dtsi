@@ -87,16 +87,6 @@
             ;
     };
 
-    esc_breathe: esc_breathe {
-        compatible = "zmk,underglow-fixed-breathe-key";
-        key-pos = <0>;          // Esc
-        led-index = <0>;        // Direct strip index for Esc
-        color = <0xFFFFFF>;     // White
-        period-ms = <2200>;
-        min-brightness = <32>;
-        max-brightness = <255>;
-    };
-
     underglow-layer {
         compatible = "zmk,underglow-layer";
         transform = <&rgb_transform>;
