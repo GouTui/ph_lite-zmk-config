@@ -12,7 +12,7 @@ manifest:
     - name: zmks
       remote: goutui
       path: zmk
-      revision: 0024e2bd0d9ff633adddb24212f16b7462db32f5
+      revision: 4bd72b229f55cf81906ff67a0e93df9217182914
       import: app/west.yml
   self:
     path: config
