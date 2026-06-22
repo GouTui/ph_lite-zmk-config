@@ -12,7 +12,7 @@ manifest:
     - name: zmks
       remote: goutui
       path: zmk
-      revision: esc-breathe
+      revision: 6aed56af82ba945cf0db4f3e4545eff68edfae84
       import: app/west.yml
   self:
     path: config
