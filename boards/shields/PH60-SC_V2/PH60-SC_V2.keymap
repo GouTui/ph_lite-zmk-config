@@ -22,16 +22,6 @@
 
 
 / {
-    combos {
-        compatible = "zmk,combos";
-
-        combo_battery_level {
-            timeout-ms = <120>;
-            key-positions = <52 58>;
-            bindings = <&rgb_ug RGB_BAT>;
-        };
-    };
-
     behaviors {
         
         // Macro to clear current BT profile (tap)
