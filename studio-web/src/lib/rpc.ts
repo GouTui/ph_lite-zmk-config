@@ -61,17 +61,33 @@ interface ProtocolBundle {
 
 let protocolPromise: Promise<ProtocolBundle> | null = null;
 
+function getProtocolPath() {
+  return `${import.meta.env.BASE_URL}proto/zmk/studio.proto`;
+}
+
+function wrapProtocolLoadError(error: unknown, protoPath: string) {
+  if (error instanceof Error && error.message === "status 404") {
+    return new Error(
+      `页面协议文件加载失败：${protoPath} 返回 404。请强制刷新页面后重试，确认 Pages 已部署最新版本。`,
+    );
+  }
+
+  return error;
+}
+
 async function loadProtocol() {
   if (!protocolPromise) {
-    const protoUrl = new URL(
-      `${import.meta.env.BASE_URL}proto/zmk/studio.proto`,
-      window.location.origin,
-    ).toString();
+    const protoPath = getProtocolPath();
 
-    protocolPromise = load(protoUrl).then((root) => ({
-      requestType: root.lookupType("zmk.studio.Request"),
-      responseType: root.lookupType("zmk.studio.Response"),
-    }));
+    protocolPromise = load(protoPath)
+      .then((root) => ({
+        requestType: root.lookupType("zmk.studio.Request"),
+        responseType: root.lookupType("zmk.studio.Response"),
+      }))
+      .catch((error) => {
+        protocolPromise = null;
+        throw wrapProtocolLoadError(error, protoPath);
+      });
   }
 
   return protocolPromise;
